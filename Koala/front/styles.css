@@ -713,14 +713,14 @@ ul {
 
 @media (max-width: 900px) {
   .hero-carousel {
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 80px);
-  min-height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .hero-carousel-slide img {
   width: 100%;
@@ -753,49 +753,15 @@ ul {
 }
 
 @media (max-width: 720px) {
-  .navbar {
-    padding-inline: 1rem;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 64px;
-    right: 16px;
-    padding: 0.85rem 1.15rem;
-    flex-direction: column;
-    background: #ffffff;
-    border-radius: 18px;
-    box-shadow: var(--shadow-soft);
-    transform-origin: top right;
-    transform: scale(0.9);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.15s ease, transform 0.15s ease;
-  }
-
-  .nav-links.nav-open {
-    opacity: 1;
-    pointer-events: auto;
-    transform: scale(1);
-  }
-
-  .nav-cta {
-    display: none;
-  }
-
-  .nav-toggle {
-    display: flex;
-  }
-
   .hero-carousel {
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 80px);
-  min-height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    position: relative;
+    width: 100%;
+    height: 65vh;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .hero-carousel-slide img {
   width: 100%;
@@ -929,50 +895,33 @@ ul {
 
 @media (max-width: 768px) {
   .hero-overlay-content {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1.2rem;
+    width: 85%;
+    top: auto;
+    bottom: 50px;
+    transform: translate(-50%, 0);
+    border-radius: 16px;
   }
   .hero-overlay-content .hero-title {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
   }
   .hero-overlay-content .hero-subtitle {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
   }
-}
-
-/* Closable Card Button */
-.close-card-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: transparent;
-  border: none;
-  font-size: 28px;
-  line-height: 1;
-  color: var(--color-text);
-  opacity: 0.5;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.close-card-btn:hover {
-  opacity: 1;
-  background: rgba(0,0,0,0.05);
-}
-
-/* Hero Image Link Wrapper */
-.hero-image-link {
-  display: block;
-  width: 100%;
-  height: 100%;
-  text-decoration: none;
-  color: inherit;
-  z-index: 10;
+  .hero-actions .btn-lg {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    width: 100%;
+  }
+  .close-card-btn {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    background: rgba(0,0,0,0.05);
+  }
 }
