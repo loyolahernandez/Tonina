@@ -48,7 +48,7 @@ ul {
 
 .navbar {
   position: relative;
-  z-index: 30;
+  z-index: 50;
   max-width: 1120px;
   margin: 0 auto;
   padding: 1rem 1.25rem;
@@ -115,7 +115,7 @@ ul {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  background: #f7f7fb;
+  background: var(--color-bg);
 }
 
 .hero-link {
@@ -156,6 +156,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--color-bg);
 }
 
 .hero-carousel-slide img {
@@ -713,22 +714,12 @@ ul {
 
 @media (max-width: 900px) {
   .hero-carousel {
-    position: relative;
-    width: 100%;
-    height: 70vh;
-    min-height: 450px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: min(70vh, 500px);
   }
 
   .hero-carousel-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
+    max-height: min(70vh, 500px);
+  }
 
   .section.about .section-inner {
     grid-template-columns: minmax(0, 1fr);
@@ -753,23 +744,47 @@ ul {
 }
 
 @media (max-width: 720px) {
-  .hero-carousel {
-    position: relative;
-    width: 100%;
-    height: 65vh;
-    min-height: 400px;
+  .navbar {
+    padding-inline: 1rem;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    padding: 0.85rem 1.15rem;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+    transform-origin: top right;
+    transform: scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .nav-links.nav-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .nav-toggle {
     display: flex;
-    align-items: center;
-    justify-content: center;
+  }
+
+  .hero-carousel {
+    min-height: min(60vh, 400px);
   }
 
   .hero-carousel-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
+    max-height: min(60vh, 400px);
+  }
 
   .hero-carousel-btn {
     width: 40px;
@@ -806,6 +821,7 @@ ul {
 }
 
 
+
 /* WhatsApp Floating Button */
 .whatsapp-float {
   position: fixed;
@@ -838,17 +854,41 @@ ul {
   fill: currentColor;
 }
 
-@media (max-width: 768px) {
-  .whatsapp-float {
-    width: 50px;
-    height: 50px;
-    bottom: 20px;
-    right: 20px;
-  }
-  .whatsapp-float svg {
-    width: 28px;
-    height: 28px;
-  }
+/* Closable Card Button */
+.close-card-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--color-text);
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-card-btn:hover {
+  opacity: 1;
+  background: rgba(0,0,0,0.05);
+}
+
+/* Hero Image Link Wrapper */
+.hero-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  z-index: 20;
 }
 
 /* Hero Overlay Content */
@@ -857,7 +897,7 @@ ul {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 20;
+  z-index: 40;
   text-align: center;
   background: rgba(255, 255, 255, 0.9);
   padding: 3rem 2rem;
@@ -893,35 +933,61 @@ ul {
   padding: 1rem 2.5rem;
 }
 
-@media (max-width: 768px) {
+/* Mobile Overrides */
+@media (max-width: 720px) {
+  /* Natural height hero for mobile to prevent losing context/cutoff */
+  .hero-carousel {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .hero-carousel-viewport,
+  .hero-carousel-track,
+  .hero-carousel-slide {
+    height: auto !important;
+  }
+  .hero-carousel-slide img {
+    height: auto !important;
+    object-fit: contain !important;
+    max-height: 60vh !important;
+  }
+
+  /* Overlay below the carousel on mobile */
   .hero-overlay-content {
-    padding: 1.5rem 1.2rem;
-    width: 85%;
+    position: relative;
     top: auto;
-    bottom: 50px;
-    transform: translate(-50%, 0);
+    left: auto;
+    transform: none;
+    margin: 0 auto 30px auto;
+    width: 90%;
+    padding: 1.5rem 1.2rem;
     border-radius: 16px;
+    background: #FFFFFF;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    z-index: 45;
   }
   .hero-overlay-content .hero-title {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
   }
   .hero-overlay-content .hero-subtitle {
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
     line-height: 1.4;
   }
   .hero-actions .btn-lg {
-    padding: 0.8rem 1.2rem;
-    font-size: 1rem;
     width: 100%;
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
   }
-  .close-card-btn {
-    top: 10px;
-    right: 10px;
-    width: 35px;
-    height: 35px;
-    font-size: 24px;
-    background: rgba(0,0,0,0.05);
+
+  .whatsapp-float {
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+  }
+  .whatsapp-float svg {
+    width: 28px;
+    height: 28px;
   }
 }
