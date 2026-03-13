@@ -957,7 +957,7 @@ ul {
     top: auto;
     left: auto;
     transform: none;
-    margin: 0 auto 30px auto;
+    margin: 24px auto 30px auto;
     width: 90%;
     padding: 1.5rem 1.2rem;
     border-radius: 16px;
@@ -989,5 +989,66 @@ ul {
   .whatsapp-float svg {
     width: 28px;
     height: 28px;
+  }
+}
+
+/* Slide Glassmorphism Badges */
+.hero-carousel-slide {
+  position: relative;
+}
+
+.slide-badge {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  font-size: 1.1rem;
+  z-index: 10;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: float-badge 3s ease-in-out infinite;
+}
+
+@keyframes float-badge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.badge-bottom-right { bottom: 60px; right: 80px; }
+.badge-bottom-left  { bottom: 60px; left: 80px; }
+.badge-top-right    { top: 60px; right: 80px; }
+.badge-top-left     { top: 60px; left: 80px; }
+
+@media (max-width: 900px) {
+  .slide-badge {
+    padding: 10px 18px;
+    font-size: 0.95rem;
+  }
+  .badge-bottom-right { bottom: 40px; right: 40px; }
+  .badge-bottom-left  { bottom: 40px; left: 40px; }
+  .badge-top-right    { top: 40px; right: 40px; }
+  .badge-top-left     { top: 40px; left: 40px; }
+}
+
+@media (max-width: 720px) {
+  .slide-badge {
+    position: absolute;
+    bottom: 25px;
+    top: auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 90%;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    /* Disable the hover float animation on mobile so it doesn't jump around */
+    animation: none;
   }
 }
