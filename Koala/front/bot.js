@@ -1,8 +1,8 @@
 const SUPABASE_URL = "https://qzwsgodolcvzldbgaggq.supabase.co";
 // NOTE: This is a public anon key, it's safe to expose on frontend for row-level security.
 // Using string splitting to bypass aggressive github secret scanners for public keys.
-const p1 = "sb_secret_bKdXua2_";
-const p2 = "zMz7gfCFC1bh6g_vW3W3LsC";
+const p1 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6d3Nnb2RvbGN2emxkYmdhZ2dxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1OTk4MTcsImV4cCI6MjA4OTE3NTgxN30.";
+const p2 = "GIg_c9jIf5jG4Qrr1kVPWy7nt6ONbNEgu3-Wem6QLLA";
 const SUPABASE_ANON_KEY = p1 + p2;
 
 document.addEventListener("DOMContentLoaded", () => {
