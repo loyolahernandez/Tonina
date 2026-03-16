@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(data)
       });
 
-      if (!response.ok) throw new Error("Error en la API");
+      if (!response.ok) { const errText = await response.text(); throw new Error("API: " + response.status + " " + errText); }
 
       // Éxito: Cambiar la interfaz
       contentDiv.innerHTML = `
@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("Error guardando lead:", error);
       submitBtn.disabled = false;
-      submitBtn.innerText = "Error. Intenta de nuevo";
+      submitBtn.innerText = "Error: " + error.message;
     }
   });
 
