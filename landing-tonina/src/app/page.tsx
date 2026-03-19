@@ -1,7 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { CheckCircle2, Code2, Database, Rocket, TrendingUp, Users } from "lucide-react";
-import Image from "next/image";
 
 export default function Home() {
   return (
@@ -34,7 +34,23 @@ export default function Home() {
       {/* Hero Section */}
       <section className="pt-24 pb-32 px-4 sm:px-6 lg:px-8 text-center max-w-5xl mx-auto">
         <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 leading-tight tracking-tight text-balance">
-          Construimos <span className="text-indigo-600">Software a Medida</span> para empresas que quieren crecer.
+          Construimos{" "}
+          <motion.span
+            className="relative inline-block bg-gradient-to-r from-indigo-600 via-sky-500 to-cyan-400 bg-clip-text text-transparent"
+            initial={{ backgroundPosition: "0% 50%", y: 0 }}
+            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"], y: [0, -4, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            style={{ backgroundSize: "200% 200%" }}
+          >
+            Software a Medida
+            <motion.span
+              className="absolute inset-x-0 -bottom-2 h-1 rounded-full bg-gradient-to-r from-indigo-500/0 via-indigo-500 to-cyan-400/0"
+              initial={{ scaleX: 0.6, opacity: 0.5 }}
+              animate={{ scaleX: [0.6, 1, 0.6], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.span>{" "}
+          para empresas que quieren crecer.
         </h1>
         <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed">
           No vendemos líneas de código. Entendemos tu negocio tradicional, eliminamos los cuellos de botella y automatizamos tu operación para multiplicar tus ventas.
