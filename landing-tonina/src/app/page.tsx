@@ -90,7 +90,7 @@ export default function Home() {
               <ul className="space-y-4 mb-10">
                 {[
                   "Captura de Leads 24/7 sin intervención manual.",
-                  "Enrutamiento directo a Base de Datos Segura (Supabase).",
+                  "Enrutamiento directo a Base de Datos Segura.",
                   "Tablero de gestión (Kanban) para la Directora.",
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-indigo-100">
