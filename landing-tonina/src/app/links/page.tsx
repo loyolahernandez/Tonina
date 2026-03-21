@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, Building2, Rocket, Mail, CheckCircle2 } from "lucide-react";
-import Image from "next/image";
+import { ArrowLeft, ArrowRight, Building2, Rocket, Mail, CheckCircle2, Code2 } from "lucide-react";
 
 export default function LinksPage() {
   const [path, setPath] = useState<'none' | 'tonina' | 'swell'>('none');
@@ -10,19 +9,18 @@ export default function LinksPage() {
   const [swellEmail, setSwellEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  // Reemplazar con el número real
-  const WHATSAPP_NUMBER = "569XXXXXXXX";
+  // Número actualizado
+  const WHATSAPP_NUMBER = "56982091549";
 
   const handleToninaSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `Hola Nacho, soy ${toninaData.name}. Mi negocio es sobre ${toninaData.business} y mi mayor cuello de botella actual es: ${toninaData.bottleneck}. Me gustaría evaluar cómo el software a medida puede ayudarme.`;
+    const text = `Hola equipo de Tonina, soy ${toninaData.name}. Mi negocio es sobre ${toninaData.business} y mi mayor cuello de botella actual es: ${toninaData.bottleneck}. Me gustaría evaluar cómo el software a medida puede ayudarme.`;
     const encodedText = encodeURIComponent(text);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedText}`, "_blank");
   };
 
   const handleSwellSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí luego conectaremos Supabase. Por ahora, simulamos el éxito.
     setIsSubscribed(true);
     setTimeout(() => {
       setPath('none');
@@ -34,17 +32,15 @@ export default function LinksPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 font-sans text-slate-900">
       
-      {/* Perfil Header */}
+      {/* Perfil Header Corporativo */}
       <div className="flex flex-col items-center text-center mb-10 w-full max-w-md">
-        <div className="w-24 h-24 bg-slate-200 rounded-full mb-4 overflow-hidden border-4 border-white shadow-lg flex items-center justify-center text-slate-400 text-3xl font-black">
-          {/* Si tienes una foto, puedes usar <Image src="/foto.jpg" ... /> aquí */}
-          NL
+        <div className="w-20 h-20 bg-indigo-600 rounded-2xl mb-5 shadow-lg shadow-indigo-600/30 flex items-center justify-center text-white">
+          <Code2 size={40} strokeWidth={2.5} />
         </div>
-        <h1 className="text-2xl font-black text-slate-900">Nacho Loyola</h1>
-        <p className="text-slate-500 font-medium">@nacho.puravida</p>
-        <p className="mt-4 text-slate-700 leading-relaxed text-sm">
-          Construyo software a medida para escalar negocios. <br/>
-          Documentando el proceso en público.
+        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Tonina</h1>
+        <p className="text-slate-500 font-bold uppercase tracking-widest text-sm mt-2">Software Boutique</p>
+        <p className="mt-4 text-slate-600 leading-relaxed font-medium">
+          Eliminamos cuellos de botella y escalamos operaciones tradicionales con automatización y software a medida.
         </p>
       </div>
 
@@ -53,26 +49,29 @@ export default function LinksPage() {
         {/* Vista Inicial (Botones) */}
         {path === 'none' && (
           <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {/* Tarjeta Tonina (B2B) - Diseño Premium */}
             <button
               onClick={() => setPath('tonina')}
-              className="w-full bg-white border border-slate-200 hover:border-indigo-600 hover:shadow-xl hover:-translate-y-1 transition-all rounded-2xl p-6 flex flex-col items-center text-center group cursor-pointer"
+              className="w-full bg-gradient-to-br from-indigo-900 to-slate-900 hover:from-indigo-800 hover:to-slate-800 text-white transition-all rounded-2xl p-6 flex flex-col items-center text-center group cursor-pointer shadow-xl shadow-indigo-900/20 border border-indigo-700/50 hover:-translate-y-1 relative overflow-hidden"
             >
-              <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Building2 size={24} />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10"></div>
+              <div className="w-14 h-14 bg-white/10 text-indigo-300 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform group-hover:bg-white/20 group-hover:text-white backdrop-blur-sm">
+                <Building2 size={28} />
               </div>
-              <h2 className="text-lg font-bold text-slate-900 mb-1">Escalar mi empresa</h2>
-              <p className="text-sm text-slate-500">Diagnóstico para software B2B y automatización</p>
+              <h2 className="text-xl font-black mb-1 tracking-tight">Escalar mi empresa</h2>
+              <p className="text-sm text-indigo-200 font-medium">Diagnóstico para software B2B y automatización</p>
             </button>
 
+            {/* Tarjeta Swell / Lab - Diseño Secundario y limpio */}
             <button
               onClick={() => setPath('swell')}
-              className="w-full bg-slate-900 hover:bg-slate-800 border border-transparent transition-all rounded-2xl p-6 flex flex-col items-center text-center group cursor-pointer shadow-lg hover:shadow-xl hover:-translate-y-1 text-white"
+              className="w-full bg-white border border-slate-200 hover:border-slate-300 transition-all rounded-2xl p-6 flex flex-col items-center text-center group cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-1 text-slate-800"
             >
-              <div className="w-12 h-12 bg-slate-800 text-emerald-400 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 bg-slate-100 text-slate-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Rocket size={24} />
               </div>
-              <h2 className="text-lg font-bold mb-1">Comunidad & Swell</h2>
-              <p className="text-sm text-slate-400">Únete a la lista de espera (Build in Public)</p>
+              <h2 className="text-lg font-bold mb-1 text-slate-900">Laboratorio & Comunidad</h2>
+              <p className="text-sm text-slate-500">Nuevos productos en público (Lista de espera)</p>
             </button>
           </div>
         )}
@@ -118,13 +117,13 @@ export default function LinksPage() {
             <button type="button" onClick={() => setPath('none')} className="text-slate-400 hover:text-white mb-6 flex items-center text-sm font-semibold transition-colors">
               <ArrowLeft size={16} className="mr-1" /> Volver
             </button>
-            <h2 className="text-xl font-black mb-2 text-white">Swell (Lista de Espera)</h2>
-            <p className="text-sm text-slate-400 mb-6">Únete a la lista para recibir actualizaciones de mis proyectos de software y negocios.</p>
+            <h2 className="text-xl font-black mb-2 text-white">Laboratorio (Lista de Espera)</h2>
+            <p className="text-sm text-slate-400 mb-6">Únete a la lista para recibir actualizaciones de los nuevos productos que estamos construyendo.</p>
             
             {isSubscribed ? (
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 flex items-center gap-3 text-emerald-400 animate-in fade-in">
                 <CheckCircle2 size={24} />
-                <span className="font-bold">¡Estás dentro! Te avisaré pronto.</span>
+                <span className="font-bold">¡Estás dentro! Te avisaremos pronto.</span>
               </div>
             ) : (
               <div className="space-y-4">
@@ -144,9 +143,9 @@ export default function LinksPage() {
         )}
       </div>
       
-      {/* Footer minimalista */}
+      {/* Footer */}
       <div className="mt-12 text-center text-xs text-slate-400 font-medium">
-        Construido por Tonina Software © {new Date().getFullYear()}
+        © {new Date().getFullYear()} Tonina. Todos los derechos reservados.
       </div>
     </div>
   );
