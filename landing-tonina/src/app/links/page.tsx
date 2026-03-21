@@ -30,14 +30,14 @@ export default function LinksPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 font-sans text-slate-900">
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 font-sans text-\[#0E1330\]">
       
       {/* Perfil Header Corporativo */}
       <div className="flex flex-col items-center text-center mb-10 w-full max-w-md">
-        <div className="w-20 h-20 bg-indigo-600 rounded-2xl mb-5 shadow-lg shadow-indigo-600/30 flex items-center justify-center text-white">
-          <Code2 size={40} strokeWidth={2.5} />
+        <div className="w-20 h-20 bg-\[#4976FF\] rounded-2xl mb-5 shadow-lg shadow-\[#4976FF\]/30 flex items-center justify-center text-white">
+          <img src="/logo-white.svg" alt="Tonina Logo" className="w-12 h-12 object-contain" />
         </div>
-        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Tonina</h1>
+        <h1 className="text-3xl font-black text-\[#0E1330\] tracking-tight">Tonina</h1>
         <p className="text-slate-500 font-bold uppercase tracking-widest text-sm mt-2">Software Boutique</p>
         <p className="mt-4 text-slate-600 leading-relaxed font-medium">
           Eliminamos cuellos de botella y escalamos operaciones tradicionales con automatización y software a medida.
@@ -52,7 +52,7 @@ export default function LinksPage() {
             {/* Tarjeta Tonina (B2B) - Diseño Premium */}
             <button
               onClick={() => setPath('tonina')}
-              className="w-full bg-gradient-to-br from-indigo-900 to-slate-900 hover:from-indigo-800 hover:to-slate-800 text-white transition-all rounded-2xl p-6 flex flex-col items-center text-center group cursor-pointer shadow-xl shadow-indigo-900/20 border border-indigo-700/50 hover:-translate-y-1 relative overflow-hidden"
+              className="w-full bg-gradient-to-br from-indigo-900 to-slate-900 hover:from-indigo-800 hover:to-slate-800 text-white transition-all rounded-2xl p-6 flex flex-col items-center text-center group cursor-pointer shadow-xl shadow-\[#0E1330\]/20 border border-indigo-700/50 hover:-translate-y-1 relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10"></div>
               <div className="w-14 h-14 bg-white/10 text-indigo-300 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform group-hover:bg-white/20 group-hover:text-white backdrop-blur-sm">
@@ -65,12 +65,12 @@ export default function LinksPage() {
             {/* Tarjeta Swell / Lab - Diseño Secundario y limpio */}
             <button
               onClick={() => setPath('swell')}
-              className="w-full bg-white border border-slate-200 hover:border-slate-300 transition-all rounded-2xl p-6 flex flex-col items-center text-center group cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-1 text-slate-800"
+              className="w-full bg-white border border-slate-200 hover:border-slate-300 transition-all rounded-2xl p-6 flex flex-col items-center text-center group cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-1 text-\[#27314D\]"
             >
               <div className="w-12 h-12 bg-slate-100 text-slate-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <Rocket size={24} />
               </div>
-              <h2 className="text-lg font-bold mb-1 text-slate-900">Laboratorio & Comunidad</h2>
+              <h2 className="text-lg font-bold mb-1 text-\[#0E1330\]">Laboratorio & Comunidad</h2>
               <p className="text-sm text-slate-500">Nuevos productos en público (Lista de espera)</p>
             </button>
           </div>
@@ -82,20 +82,20 @@ export default function LinksPage() {
             <button type="button" onClick={() => setPath('none')} className="text-slate-400 hover:text-slate-600 mb-6 flex items-center text-sm font-semibold transition-colors">
               <ArrowLeft size={16} className="mr-1" /> Volver
             </button>
-            <h2 className="text-xl font-black mb-6 text-slate-900">Hablemos de tu negocio</h2>
+            <h2 className="text-xl font-black mb-6 text-\[#0E1330\]">Hablemos de tu negocio</h2>
             
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">Tu Nombre</label>
-                <input required type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all" placeholder="Ej. Juan Pérez" value={toninaData.name} onChange={e => setToninaData({...toninaData, name: e.target.value})} />
+                <input required type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-\[#4976FF\] focus:border-transparent outline-none transition-all" placeholder="Ej. Juan Pérez" value={toninaData.name} onChange={e => setToninaData({...toninaData, name: e.target.value})} />
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">¿De qué trata tu empresa?</label>
-                <input required type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all" placeholder="Ej. Clínica Dental, Constructora..." value={toninaData.business} onChange={e => setToninaData({...toninaData, business: e.target.value})} />
+                <input required type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-\[#4976FF\] focus:border-transparent outline-none transition-all" placeholder="Ej. Clínica Dental, Constructora..." value={toninaData.business} onChange={e => setToninaData({...toninaData, business: e.target.value})} />
               </div>
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-1">¿Cuál es tu mayor cuello de botella?</label>
-                <select required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none bg-white transition-all text-slate-700" value={toninaData.bottleneck} onChange={e => setToninaData({...toninaData, bottleneck: e.target.value})}>
+                <select required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-\[#4976FF\] focus:border-transparent outline-none bg-white transition-all text-slate-700" value={toninaData.bottleneck} onChange={e => setToninaData({...toninaData, bottleneck: e.target.value})}>
                   <option value="" disabled>Selecciona una opción</option>
                   <option value="Desorden en ventas por WhatsApp">Desorden en ventas por WhatsApp</option>
                   <option value="Uso excesivo de planillas Excel">Uso excesivo de planillas Excel</option>
@@ -105,7 +105,7 @@ export default function LinksPage() {
               </div>
             </div>
 
-            <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl mt-8 flex items-center justify-center gap-2 transition-colors shadow-lg shadow-indigo-600/30">
+            <button type="submit" className="w-full bg-\[#4976FF\] hover:bg-\[#3a5edb\] text-white font-bold py-4 rounded-xl mt-8 flex items-center justify-center gap-2 transition-colors shadow-lg shadow-\[#4976FF\]/30">
               Ir a WhatsApp <ArrowRight size={18} />
             </button>
           </form>
@@ -113,7 +113,7 @@ export default function LinksPage() {
 
         {/* Formulario Swell / Comunidad */}
         {path === 'swell' && (
-          <form onSubmit={handleSwellSubmit} className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl animate-in fade-in zoom-in-95 duration-300">
+          <form onSubmit={handleSwellSubmit} className="bg-\[#0E1330\] border border-\[#27314D\] rounded-2xl p-6 shadow-xl animate-in fade-in zoom-in-95 duration-300">
             <button type="button" onClick={() => setPath('none')} className="text-slate-400 hover:text-white mb-6 flex items-center text-sm font-semibold transition-colors">
               <ArrowLeft size={16} className="mr-1" /> Volver
             </button>
@@ -131,10 +131,10 @@ export default function LinksPage() {
                   <label className="block text-sm font-bold text-slate-300 mb-1">Correo Electrónico</label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-                    <input required type="email" className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all placeholder:text-slate-500" placeholder="tu@correo.com" value={swellEmail} onChange={e => setSwellEmail(e.target.value)} />
+                    <input required type="email" className="w-full pl-11 pr-4 py-3 rounded-xl bg-\[#27314D\] border border-slate-700 text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all placeholder:text-slate-500" placeholder="tu@correo.com" value={swellEmail} onChange={e => setSwellEmail(e.target.value)} />
                   </div>
                 </div>
-                <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-black py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition-colors shadow-lg shadow-emerald-500/20">
+                <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-600 text-\[#0E1330\] font-black py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition-colors shadow-lg shadow-emerald-500/20">
                   Unirme a la lista <ArrowRight size={18} />
                 </button>
               </div>
