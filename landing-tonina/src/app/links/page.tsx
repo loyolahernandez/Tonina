@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, Building2, Rocket, Mail, CheckCircle2, Code2 } f
 
 export default function LinksPage() {
   const [path, setPath] = useState<'none' | 'tonina' | 'swell'>('none');
-  const [toninaData, setToninaData] = useState({ name: "", business: "", bottleneck: "" });
+  const [toninaData, setToninaData] = useState({ name: "", business: "", bottleneck: "", budget: "" });
   const [swellEmail, setSwellEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -14,7 +14,7 @@ export default function LinksPage() {
 
   const handleToninaSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `Hola equipo de Tonina, soy ${toninaData.name}. Mi negocio es sobre ${toninaData.business} y mi mayor cuello de botella actual es: ${toninaData.bottleneck}. Me gustaría evaluar cómo el software a medida puede ayudarme.`;
+    const text = `Hola equipo de Tonina, soy ${toninaData.name}. Mi negocio es sobre ${toninaData.business} y mi mayor cuello de botella actual es: ${toninaData.bottleneck}. Mi presupuesto estimado es de ${toninaData.budget}. Me gustaría evaluar cómo el software a medida puede ayudarme.`;
     const encodedText = encodeURIComponent(text);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedText}`, "_blank");
   };
@@ -101,6 +101,16 @@ export default function LinksPage() {
                   <option value="Uso excesivo de planillas Excel">Uso excesivo de planillas Excel</option>
                   <option value="Procesos manuales muy lentos">Procesos manuales muy lentos</option>
                   <option value="Otro (Te cuento por chat)">Otro (Te cuento por chat)</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1">Presupuesto estimado (CLP)</label>
+                <select required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#4976FF] focus:border-transparent outline-none bg-white transition-all text-slate-700" value={toninaData.budget} onChange={e => setToninaData({...toninaData, budget: e.target.value})}>
+                  <option value="" disabled>Selecciona un rango</option>
+                  <option value="$500k - $1M CLP (MVP rápido)">$500.000 - $1.000.000 CLP (MVP rápido)</option>
+                  <option value="$1M - $3M CLP (Sistema Operativo a Medida)">$1.000.000 - $3.000.000 CLP (Sistema Operativo)</option>
+                  <option value="+$3M CLP (Infraestructura Completa)">Más de $3.000.000 CLP (Infraestructura)</option>
+                  <option value="No lo tengo claro aún">Aún no lo tengo claro</option>
                 </select>
               </div>
             </div>
