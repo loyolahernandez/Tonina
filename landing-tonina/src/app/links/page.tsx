@@ -1,15 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, Building2, Rocket, Mail, CheckCircle2, Code2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Building2, Rocket, Mail, CheckCircle2, MessageCircle } from "lucide-react";
+
+const BRAND = {
+  bg: "#0E1330",
+  bgCard: "#141b3d",
+  bgCardBorder: "#1e2d5a",
+  blue: "#4976FF",
+  blueHover: "#3a5edb",
+  navy: "#0E1330",
+};
 
 export default function LinksPage() {
-  const [path, setPath] = useState<'none' | 'tonina' | 'swell'>('none');
+  const [path, setPath] = useState<"none" | "tonina" | "swell">("none");
   const [toninaData, setToninaData] = useState({ name: "", business: "", bottleneck: "", budget: "" });
   const [swellEmail, setSwellEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  // Número actualizado
   const WHATSAPP_NUMBER = "56982091549";
 
   const handleToninaSubmit = (e: React.FormEvent) => {
@@ -23,128 +31,278 @@ export default function LinksPage() {
     e.preventDefault();
     setIsSubscribed(true);
     setTimeout(() => {
-      setPath('none');
+      setPath("none");
       setIsSubscribed(false);
       setSwellEmail("");
     }, 3000);
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 font-sans text-\[#0E1330\]">
-      
-      {/* Perfil Header Corporativo */}
-      <div className="flex flex-col items-center text-center mb-10 w-full max-w-md">
-        <div className="w-20 h-20 bg-\[#4976FF\] rounded-2xl mb-5 shadow-lg shadow-\[#4976FF\]/30 flex items-center justify-center text-white">
-          <img src="/logo-white.svg" alt="Tonina Logo" className="w-12 h-12 object-contain" />
+    <div
+      className="min-h-screen flex flex-col items-center py-12 px-4 font-sans"
+      style={{ background: BRAND.bg }}
+    >
+      {/* Header */}
+      <div className="flex flex-col items-center text-center mb-10 w-full max-w-sm">
+        <div
+          className="w-16 h-16 rounded-2xl mb-5 flex items-center justify-center shadow-lg"
+          style={{ background: BRAND.blue, boxShadow: `0 8px 24px ${BRAND.blue}40` }}
+        >
+          <img src="/logo-white.svg" alt="Tonina Logo" className="w-10 h-10 object-contain" />
         </div>
-        <h1 className="text-3xl font-black text-\[#0E1330\] tracking-tight">Tonina</h1>
-        <p className="text-slate-500 font-bold uppercase tracking-widest text-sm mt-2">Software Boutique</p>
-        <p className="mt-4 text-slate-600 leading-relaxed font-medium">
-          Eliminamos cuellos de botella y escalamos operaciones tradicionales con automatización y software a medida.
+        <h1 className="text-3xl font-black tracking-tight" style={{ color: "#ffffff" }}>
+          Tonina
+        </h1>
+        <p
+          className="font-bold uppercase tracking-widest text-xs mt-1"
+          style={{ color: BRAND.blue }}
+        >
+          Software Boutique
+        </p>
+        <p className="mt-3 leading-relaxed text-sm" style={{ color: "#94a3b8" }}>
+          Eliminamos cuellos de botella operativos con automatización y software a medida.
         </p>
       </div>
 
-      <div className="w-full max-w-md space-y-4">
-        
-        {/* Vista Inicial (Botones) */}
-        {path === 'none' && (
-          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Tarjeta Tonina (B2B) - Diseño Premium */}
+      <div className="w-full max-w-sm space-y-3">
+
+        {/* Vista Inicial */}
+        {path === "none" && (
+          <div className="space-y-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
+
+            {/* Tarjeta Principal — B2B */}
             <button
-              onClick={() => setPath('tonina')}
-              className="w-full bg-gradient-to-br from-indigo-900 to-slate-900 hover:from-indigo-800 hover:to-slate-800 text-white transition-all rounded-2xl p-6 flex flex-col items-center text-center group cursor-pointer shadow-xl shadow-\[#0E1330\]/20 border border-indigo-700/50 hover:-translate-y-1 relative overflow-hidden"
+              onClick={() => setPath("tonina")}
+              className="w-full text-left rounded-2xl p-6 flex flex-col cursor-pointer transition-all hover:-translate-y-0.5 hover:opacity-95 relative overflow-hidden"
+              style={{
+                background: `linear-gradient(135deg, ${BRAND.blue} 0%, #2d52c4 100%)`,
+                boxShadow: `0 12px 32px ${BRAND.blue}40`,
+              }}
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10"></div>
-              <div className="w-14 h-14 bg-white/10 text-indigo-300 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform group-hover:bg-white/20 group-hover:text-white backdrop-blur-sm">
-                <Building2 size={28} />
+              <div
+                className="absolute top-0 right-0 w-40 h-40 rounded-full blur-3xl opacity-20"
+                style={{ background: "#ffffff", transform: "translate(30%, -30%)" }}
+              />
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                style={{ background: "rgba(255,255,255,0.2)" }}
+              >
+                <Building2 size={24} color="#ffffff" />
               </div>
-              <h2 className="text-xl font-black mb-1 tracking-tight">Escalar mi empresa</h2>
-              <p className="text-sm text-indigo-200 font-medium">Diagnóstico para software B2B y automatización</p>
+              <h2 className="text-lg font-black tracking-tight" style={{ color: "#ffffff" }}>
+                Escalar mi empresa
+              </h2>
+              <p className="text-sm mt-1" style={{ color: "#bfcfff" }}>
+                Diagnóstico gratuito — respondemos en 24 h
+              </p>
+              <div className="flex items-center gap-1 mt-5 text-sm font-bold" style={{ color: "#ffffff" }}>
+                Solicitar diagnóstico <ArrowRight size={16} />
+              </div>
             </button>
 
-            {/* Tarjeta Swell / Lab - Diseño Secundario y limpio */}
+            {/* Tarjeta Secundaria — Lab */}
             <button
-              onClick={() => setPath('swell')}
-              className="w-full bg-white border border-slate-200 hover:border-slate-300 transition-all rounded-2xl p-6 flex flex-col items-center text-center group cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-1 text-\[#27314D\]"
+              onClick={() => setPath("swell")}
+              className="w-full text-left rounded-2xl p-4 flex items-center cursor-pointer transition-all hover:opacity-80 gap-4"
+              style={{
+                background: BRAND.bgCard,
+                border: `1px solid ${BRAND.bgCardBorder}`,
+              }}
             >
-              <div className="w-12 h-12 bg-slate-100 text-slate-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Rocket size={24} />
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                style={{ background: BRAND.bgCardBorder }}
+              >
+                <Rocket size={18} color={BRAND.blue} />
               </div>
-              <h2 className="text-lg font-bold mb-1 text-\[#0E1330\]">Laboratorio & Comunidad</h2>
-              <p className="text-sm text-slate-500">Nuevos productos en público (Lista de espera)</p>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-sm font-bold" style={{ color: "#e2e8f0" }}>
+                  Laboratorio &amp; Comunidad
+                </h2>
+                <p className="text-xs mt-0.5" style={{ color: "#64748b" }}>
+                  Nuevos productos — Lista de espera
+                </p>
+              </div>
+              <ArrowRight size={16} color="#475569" className="flex-shrink-0" />
             </button>
           </div>
         )}
 
-        {/* Formulario Tonina (B2B) */}
-        {path === 'tonina' && (
-          <form onSubmit={handleToninaSubmit} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xl animate-in fade-in zoom-in-95 duration-300">
-            <button type="button" onClick={() => setPath('none')} className="text-slate-400 hover:text-slate-600 mb-6 flex items-center text-sm font-semibold transition-colors">
+        {/* Formulario B2B */}
+        {path === "tonina" && (
+          <form
+            onSubmit={handleToninaSubmit}
+            className="rounded-2xl p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-300"
+            style={{ background: "#ffffff" }}
+          >
+            <button
+              type="button"
+              onClick={() => setPath("none")}
+              className="flex items-center text-sm font-semibold transition-colors mb-5"
+              style={{ color: "#94a3b8" }}
+            >
               <ArrowLeft size={16} className="mr-1" /> Volver
             </button>
-            <h2 className="text-xl font-black mb-6 text-\[#0E1330\]">Hablemos de tu negocio</h2>
-            
+
+            <h2 className="text-xl font-black mb-1" style={{ color: BRAND.navy }}>
+              Hablemos de tu negocio
+            </h2>
+            <p className="text-sm mb-6" style={{ color: "#64748b" }}>
+              Cuéntanos lo básico y te enviamos un diagnóstico.
+            </p>
+
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-1">Tu Nombre</label>
-                <input required type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-\[#4976FF\] focus:border-transparent outline-none transition-all" placeholder="Ej. Juan Pérez" value={toninaData.name} onChange={e => setToninaData({...toninaData, name: e.target.value})} />
+                <label className="block text-sm font-bold mb-1" style={{ color: "#374151" }}>
+                  Tu nombre
+                </label>
+                <input
+                  required
+                  type="text"
+                  className="w-full px-4 py-3 rounded-xl border outline-none transition-all"
+                  style={{ borderColor: "#e2e8f0", color: BRAND.navy }}
+                  placeholder="Ej. Juan Pérez"
+                  value={toninaData.name}
+                  onChange={(e) => setToninaData({ ...toninaData, name: e.target.value })}
+                  onFocus={(e) => (e.target.style.boxShadow = `0 0 0 3px ${BRAND.blue}33`)}
+                  onBlur={(e) => (e.target.style.boxShadow = "none")}
+                />
               </div>
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-1">¿De qué trata tu empresa?</label>
-                <input required type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-\[#4976FF\] focus:border-transparent outline-none transition-all" placeholder="Ej. Clínica Dental, Constructora..." value={toninaData.business} onChange={e => setToninaData({...toninaData, business: e.target.value})} />
+                <label className="block text-sm font-bold mb-1" style={{ color: "#374151" }}>
+                  ¿A qué se dedica tu empresa?
+                </label>
+                <input
+                  required
+                  type="text"
+                  className="w-full px-4 py-3 rounded-xl border outline-none transition-all"
+                  style={{ borderColor: "#e2e8f0", color: BRAND.navy }}
+                  placeholder="Ej. Clínica Dental, Constructora..."
+                  value={toninaData.business}
+                  onChange={(e) => setToninaData({ ...toninaData, business: e.target.value })}
+                  onFocus={(e) => (e.target.style.boxShadow = `0 0 0 3px ${BRAND.blue}33`)}
+                  onBlur={(e) => (e.target.style.boxShadow = "none")}
+                />
               </div>
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-1">¿Cuál es tu mayor cuello de botella?</label>
-                <select required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-\[#4976FF\] focus:border-transparent outline-none bg-white transition-all text-slate-700" value={toninaData.bottleneck} onChange={e => setToninaData({...toninaData, bottleneck: e.target.value})}>
+                <label className="block text-sm font-bold mb-1" style={{ color: "#374151" }}>
+                  Mayor cuello de botella
+                </label>
+                <select
+                  required
+                  className="w-full px-4 py-3 rounded-xl border outline-none transition-all bg-white"
+                  style={{ borderColor: "#e2e8f0", color: toninaData.bottleneck ? BRAND.navy : "#94a3b8" }}
+                  value={toninaData.bottleneck}
+                  onChange={(e) => setToninaData({ ...toninaData, bottleneck: e.target.value })}
+                >
                   <option value="" disabled>Selecciona una opción</option>
                   <option value="Desorden en ventas por WhatsApp">Desorden en ventas por WhatsApp</option>
                   <option value="Uso excesivo de planillas Excel">Uso excesivo de planillas Excel</option>
                   <option value="Procesos manuales muy lentos">Procesos manuales muy lentos</option>
-                  <option value="Otro (Te cuento por chat)">Otro (Te cuento por chat)</option>
+                  <option value="Otro (Te cuento por chat)">Otro</option>
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-1">Presupuesto estimado (CLP)</label>
-                <select required className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-[#4976FF] focus:border-transparent outline-none bg-white transition-all text-slate-700" value={toninaData.budget} onChange={e => setToninaData({...toninaData, budget: e.target.value})}>
+                <label className="block text-sm font-bold mb-1" style={{ color: "#374151" }}>
+                  Presupuesto estimado (CLP)
+                </label>
+                <select
+                  required
+                  className="w-full px-4 py-3 rounded-xl border outline-none transition-all bg-white"
+                  style={{ borderColor: "#e2e8f0", color: toninaData.budget ? BRAND.navy : "#94a3b8" }}
+                  value={toninaData.budget}
+                  onChange={(e) => setToninaData({ ...toninaData, budget: e.target.value })}
+                >
                   <option value="" disabled>Selecciona un rango</option>
-                  <option value="$500k - $1M CLP (MVP rápido)">$500.000 - $1.000.000 CLP (MVP rápido)</option>
-                  <option value="$1M - $3M CLP (Sistema Operativo a Medida)">$1.000.000 - $3.000.000 CLP (Sistema Operativo)</option>
-                  <option value="+$3M CLP (Infraestructura Completa)">Más de $3.000.000 CLP (Infraestructura)</option>
+                  <option value="$500k - $1M CLP (MVP rápido)">$500k – $1M (MVP rápido)</option>
+                  <option value="$1M - $3M CLP (Sistema Operativo a Medida)">$1M – $3M (Sistema a medida)</option>
+                  <option value="+$3M CLP (Infraestructura Completa)">+$3M (Infraestructura)</option>
                   <option value="No lo tengo claro aún">Aún no lo tengo claro</option>
                 </select>
               </div>
             </div>
 
-            <button type="submit" className="w-full bg-\[#4976FF\] hover:bg-\[#3a5edb\] text-white font-bold py-4 rounded-xl mt-8 flex items-center justify-center gap-2 transition-colors shadow-lg shadow-\[#4976FF\]/30">
-              Ir a WhatsApp <ArrowRight size={18} />
+            <button
+              type="submit"
+              className="w-full text-white font-black py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition-opacity hover:opacity-90 shadow-lg"
+              style={{
+                background: BRAND.blue,
+                boxShadow: `0 8px 20px ${BRAND.blue}40`,
+              }}
+            >
+              <MessageCircle size={18} /> Continuar por WhatsApp
             </button>
+            <p className="text-center text-xs mt-3" style={{ color: "#94a3b8" }}>
+              Te respondemos en menos de 24 horas
+            </p>
           </form>
         )}
 
-        {/* Formulario Swell / Comunidad */}
-        {path === 'swell' && (
-          <form onSubmit={handleSwellSubmit} className="bg-\[#0E1330\] border border-\[#27314D\] rounded-2xl p-6 shadow-xl animate-in fade-in zoom-in-95 duration-300">
-            <button type="button" onClick={() => setPath('none')} className="text-slate-400 hover:text-white mb-6 flex items-center text-sm font-semibold transition-colors">
+        {/* Formulario Lab / Comunidad */}
+        {path === "swell" && (
+          <form
+            onSubmit={handleSwellSubmit}
+            className="rounded-2xl p-6 shadow-xl animate-in fade-in zoom-in-95 duration-300"
+            style={{ background: BRAND.bgCard, border: `1px solid ${BRAND.bgCardBorder}` }}
+          >
+            <button
+              type="button"
+              onClick={() => setPath("none")}
+              className="flex items-center text-sm font-semibold transition-colors mb-6"
+              style={{ color: "#64748b" }}
+            >
               <ArrowLeft size={16} className="mr-1" /> Volver
             </button>
-            <h2 className="text-xl font-black mb-2 text-white">Laboratorio (Lista de Espera)</h2>
-            <p className="text-sm text-slate-400 mb-6">Únete a la lista para recibir actualizaciones de los nuevos productos que estamos construyendo.</p>
-            
+
+            <h2 className="text-xl font-black mb-2" style={{ color: "#ffffff" }}>
+              Laboratorio (Lista de Espera)
+            </h2>
+            <p className="text-sm mb-6" style={{ color: "#64748b" }}>
+              Únete para recibir actualizaciones de los nuevos productos.
+            </p>
+
             {isSubscribed ? (
-              <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 flex items-center gap-3 text-emerald-400 animate-in fade-in">
-                <CheckCircle2 size={24} />
-                <span className="font-bold">¡Estás dentro! Te avisaremos pronto.</span>
+              <div
+                className="rounded-xl p-4 flex items-center gap-3 animate-in fade-in"
+                style={{ background: "#064e3b20", border: "1px solid #065f4620" }}
+              >
+                <CheckCircle2 size={24} color="#34d399" />
+                <span className="font-bold" style={{ color: "#34d399" }}>
+                  ¡Estás dentro! Te avisaremos pronto.
+                </span>
               </div>
             ) : (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-bold text-slate-300 mb-1">Correo Electrónico</label>
+                  <label className="block text-sm font-bold mb-1" style={{ color: "#cbd5e1" }}>
+                    Correo Electrónico
+                  </label>
                   <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-                    <input required type="email" className="w-full pl-11 pr-4 py-3 rounded-xl bg-\[#27314D\] border border-slate-700 text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all placeholder:text-slate-500" placeholder="tu@correo.com" value={swellEmail} onChange={e => setSwellEmail(e.target.value)} />
+                    <Mail
+                      className="absolute left-4 top-1/2 -translate-y-1/2"
+                      size={18}
+                      color="#475569"
+                    />
+                    <input
+                      required
+                      type="email"
+                      className="w-full pl-11 pr-4 py-3 rounded-xl border outline-none transition-all"
+                      style={{
+                        background: BRAND.bgCardBorder,
+                        borderColor: "#1e3a5f",
+                        color: "#ffffff",
+                      }}
+                      placeholder="tu@correo.com"
+                      value={swellEmail}
+                      onChange={(e) => setSwellEmail(e.target.value)}
+                    />
                   </div>
                 </div>
-                <button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-600 text-\[#0E1330\] font-black py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition-colors shadow-lg shadow-emerald-500/20">
+                <button
+                  type="submit"
+                  className="w-full font-black py-4 rounded-xl mt-2 flex items-center justify-center gap-2 transition-colors shadow-lg hover:opacity-90"
+                  style={{ background: "#10b981", color: BRAND.navy }}
+                >
                   Unirme a la lista <ArrowRight size={18} />
                 </button>
               </div>
@@ -152,9 +310,9 @@ export default function LinksPage() {
           </form>
         )}
       </div>
-      
+
       {/* Footer */}
-      <div className="mt-12 text-center text-xs text-slate-400 font-medium">
+      <div className="mt-12 text-center text-xs font-medium" style={{ color: "#334155" }}>
         © {new Date().getFullYear()} Tonina. Todos los derechos reservados.
       </div>
     </div>
