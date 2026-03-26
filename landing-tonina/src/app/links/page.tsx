@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowLeft, ArrowRight, Building2, Rocket, Mail, CheckCircle2, MessageCircle } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const BRAND = {
   bg: "#0E1330",
@@ -17,14 +18,38 @@ export default function LinksPage() {
   const [toninaData, setToninaData] = useState({ name: "", business: "", bottleneck: "", budget: "" });
   const [swellEmail, setSwellEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isToninaSubmitting, setIsToninaSubmitting] = useState(false);
+  const [isToninaSuccess, setIsToninaSuccess] = useState(false);
 
   const WHATSAPP_NUMBER = "56982091549";
 
-  const handleToninaSubmit = (e: React.FormEvent) => {
+  const handleToninaSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `Hola equipo de Tonina, soy ${toninaData.name}. Mi negocio es sobre ${toninaData.business} y mi mayor cuello de botella actual es: ${toninaData.bottleneck}. Mi presupuesto estimado es de ${toninaData.budget}. Me gustaría evaluar cómo el software a medida puede ayudarme.`;
-    const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedText}`, "_blank");
+    setIsToninaSubmitting(true);
+    
+    try {
+      await supabase.from('tonina_leads').insert([
+        { 
+          name: toninaData.name, 
+          business: toninaData.business, 
+          bottleneck: toninaData.bottleneck, 
+          budget: toninaData.budget 
+        }
+      ]);
+      
+      setIsToninaSuccess(true);
+      
+      setTimeout(() => {
+        setPath("none");
+        setIsToninaSuccess(false);
+        setToninaData({ name: "", business: "", bottleneck: "", budget: "" });
+      }, 4000);
+      
+    } catch (error) {
+      console.error("Error guardando lead:", error);
+    } finally {
+      setIsToninaSubmitting(false);
+    }
   };
 
   const handleSwellSubmit = (e: React.FormEvent) => {
@@ -147,10 +172,20 @@ export default function LinksPage() {
             <h2 className="text-xl font-black mb-1" style={{ color: BRAND.navy }}>
               Hablemos de tu negocio
             </h2>
+            
+            {isToninaSuccess ? (
+              <div className="rounded-xl p-6 flex flex-col items-center text-center gap-4 animate-in fade-in" style={{ background: `${BRAND.blue}10`, border: `1px solid ${BRAND.blue}20` }}>
+                <CheckCircle2 size={48} color={BRAND.blue} />
+                <div>
+                  <h3 className="font-black text-lg mb-1" style={{ color: BRAND.navy }}>Solicitud Recibida</h3>
+                  <p className="text-sm font-medium" style={{ color: "#64748b" }}>Nuestro equipo analizará tu caso y te contactaremos en breve.</p>
+                </div>
+              </div>
+            ) : (
+            <>
             <p className="text-sm mb-6" style={{ color: "#64748b" }}>
               Cuéntanos lo básico y te enviamos un diagnóstico.
             </p>
-
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-bold mb-1" style={{ color: "#374151" }}>
@@ -224,17 +259,20 @@ export default function LinksPage() {
 
             <button
               type="submit"
-              className="w-full text-white font-black py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition-opacity hover:opacity-90 shadow-lg"
+              disabled={isToninaSubmitting}
+              className="w-full text-white font-black py-4 rounded-xl mt-6 flex items-center justify-center gap-2 transition-opacity hover:opacity-90 shadow-lg disabled:opacity-70"
               style={{
                 background: BRAND.blue,
                 boxShadow: `0 8px 20px ${BRAND.blue}40`,
               }}
             >
-              <MessageCircle size={18} /> Continuar por WhatsApp
+              <MessageCircle size={18} /> {isToninaSubmitting ? "Enviando..." : "Enviar Solicitud"}
             </button>
             <p className="text-center text-xs mt-3" style={{ color: "#94a3b8" }}>
               Te respondemos en menos de 24 horas
             </p>
+            </>
+            )}
           </form>
         )}
 
