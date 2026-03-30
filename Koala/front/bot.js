@@ -188,8 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <form class="koala-bot-form" id="koala-lead-form">
           <input type="text" id="lead_nombre" placeholder="Tu nombre" required>
           <input type="tel" id="lead_telefono" placeholder="Tu celular (ej: +569...)" required>
-          <input type="text" id="lead_nino" placeholder="Nombre de tu hijo/a (opcional)">
-          <select id="lead_nivel">
+          <input type="text" id="lead_nino" placeholder="Nombre de tu hijo/a" required>
+          <select id="lead_nivel" required>
             <option value="" disabled selected>Nivel de interés...</option>
             <option value="Sala Cuna">Sala Cuna (0 a 2 años)</option>
             <option value="Jardín Infantil">Jardín Infantil (2 a 4 años)</option>
@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = {
       nombre_apoderado: document.getElementById("lead_nombre").value,
       telefono: document.getElementById("lead_telefono").value,
-      nombre_nino: document.getElementById("lead_nino").value || null,
+      nombre_nino: document.getElementById("lead_nino").value,
       nivel_interes: document.getElementById("lead_nivel").value || "No especificado",
       estado: "NUEVO"
     };
