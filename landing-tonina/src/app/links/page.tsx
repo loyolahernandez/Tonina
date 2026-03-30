@@ -28,6 +28,7 @@ export default function LinksPage() {
     setIsToninaSubmitting(true);
     
     try {
+      // 1. Guardar en Supabase
       await supabase.from('tonina_leads').insert([
         { 
           name: toninaData.name,
@@ -38,6 +39,13 @@ export default function LinksPage() {
           budget: toninaData.budget 
         }
       ]);
+      
+      // 2. Disparar a Make.com (El Bouncer)
+      fetch('https://hook.us2.make.com/kv0qkhocr6qekq7p7kou431rfv174zmv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(toninaData)
+      }).catch(err => console.error("Error trigger Make:", err));
       
       setIsToninaSuccess(true);
       
