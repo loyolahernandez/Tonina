@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Pega un link</h1>
+<p class="muted">Tema o playlist de YouTube / YouTube Music, o tema, playlist o álbum de Spotify.</p>
+
+<form class="panel row" method="post" action="/analyze">
+  <input class="grow" type="text" name="url" placeholder="https://open.spotify.com/playlist/…  o  https://www.youtube.com/watch?v=…" autofocus required>
+  <button class="primary" type="submit">Analizar</button>
+</form>
+
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+{% if flash %}<div class="alert ok">{{ flash }}</div>{% endif %}
+{% if not ffmpeg_ok %}<div class="alert error">ffmpeg no está instalado: las descargas van a fallar. Instálalo con <code>brew install ffmpeg</code>.</div>{% endif %}
+{% if settings.dry_run %}<div class="alert note">Modo prueba activo: se analiza todo pero no se descarga nada. <a href="/settings">Cambiar</a></div>{% endif %}
+<div class="panel row small" style="margin-top:12px">
+  <b>Spotify</b>
+  {% if spotify_user %}
+    <span>Conectado como <b>{{ spotify_user }}</b>: tus playlists (propias o colaborativas) llegan completas.</span>
+    <form method="post" action="/spotify/logout"><button class="link" type="submit">Desconectar</button></form>
+  {% elif spotify_creds %}
+    <span class="muted">Sin conectar: las playlists se leen desde la página pública (máx. 100 temas).</span>
+    <a class="button" href="/spotify/login">Conectar Spotify</a>
+  {% else %}
+    <span class="muted">
+      Sin credenciales en <code>.env</code>: las playlists se leen desde la página pública (máx. 100 temas).
+      Para leer tus playlists completas, crea una app en developer.spotify.com/dashboard (requiere Premium)
+      con Redirect URI <code>{{ spotify_redirect }}</code> y reinicia getit.
+    </span>
+  {% endif %}
+</div>
+
+<div class="row small muted" style="margin-top:10px">
+  <span>Salida: <code>{{ settings.output_dir }}</code></span>
+  <form hx-post="/open-folder" hx-swap="none"><button class="link" type="submit">Abrir carpeta</button></form>
+  <span>· {{ library_count }} temas en tu biblioteca</span>
+</div>
+
+<h2>Lotes recientes</h2>
+{% if batches %}
+<div class="panel table-wrap">
+  <table>
+    <thead><tr><th>Lote</th><th>Origen</th><th>Estado</th><th>Listos</th><th>Creado</th></tr></thead>
+    <tbody>
+    {% for b in batches %}
+      <tr>
+        <td><a href="/batches/{{ b.id }}">{{ b.title or b.url }}</a></td>
+        <td>{{ b.source }}</td>
+        <td><span class="pill s-{{ b.status }}">{{ batch_labels[b.status] }}</span></td>
+        <td>{{ b.done }} / {{ b.total }}</td>
+        <td class="muted small">{{ b.created_at[:16].replace("T", " ") }} UTC</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="muted">Todavía no hay lotes.</p>
+{% endif %}
+{% endblock %}

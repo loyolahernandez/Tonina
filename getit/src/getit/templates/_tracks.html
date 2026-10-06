@@ -1,0 +1,123 @@
+<div id="tracks-inner"
+     {% if polling %}hx-get="/batches/{{ batch.id }}/tracks" hx-trigger="every 2s" hx-target="#tracks" hx-swap="innerHTML"{% endif %}>
+
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+{% if flash %}<div class="alert ok">{{ flash }}</div>{% endif %}
+{% if batch.warning %}<div class="alert error">{{ batch.warning }}</div>{% endif %}
+
+{% if batch.status == jobs.FAILED %}
+  <div class="alert error">{{ batch.error }}</div>
+{% elif batch.status == jobs.ANALYZING and not tracks %}
+  <p class="muted">Leyendo el link…</p>
+{% else %}
+  {% set pending = counts.get(jobs.PENDING, 0) %}
+  <div class="stats">
+    <span><span class="pill s-{{ batch.status }}">{{ batch_labels[batch.status] }}</span></span>
+    <span><b>{{ tracks|length }}</b> temas</span>
+    <span class="s-done"><b>{{ counts.get(jobs.DONE_T, 0) }}</b> listos</span>
+    <span><b>{{ pending }}</b> pendientes</span>
+    <span class="s-review"><b>{{ counts.get(jobs.REVIEW, 0) }}</b> por revisar</span>
+    <span class="s-skipped_duplicate"><b>{{ counts.get(jobs.SKIPPED_DUPLICATE, 0) + counts.get(jobs.EXCLUDED, 0) }}</b> saltados</span>
+    <span class="s-error"><b>{{ counts.get(jobs.ERROR, 0) }}</b> con error</span>
+  </div>
+
+  <div class="row" style="margin-bottom:14px">
+    {% if batch.status != jobs.ANALYZING %}
+      <button class="primary" hx-post="/batches/{{ batch.id }}/download" hx-target="#tracks"
+              {% if not pending %}disabled{% endif %}>
+        {% if settings.dry_run %}Probar descarga ({{ pending }}){% else %}Descargar {{ pending }} pendientes{% endif %}
+      </button>
+    {% endif %}
+    {% if counts.get(jobs.ERROR, 0) %}
+      <button hx-post="/batches/{{ batch.id }}/retry-failed" hx-target="#tracks">Reintentar fallidos</button>
+    {% endif %}
+    <button hx-post="/open-folder" hx-swap="none">Abrir carpeta de salida</button>
+    {% if counts.get(jobs.REVIEW, 0) %}
+      <span class="small s-review">Los temas "revisar" no se descargan hasta que confirmes un candidato.</span>
+    {% endif %}
+  </div>
+
+  <div class="panel table-wrap">
+  <table>
+    <thead>
+      <tr><th>#</th><th style="min-width:200px">Tema</th><th>Dur.</th><th style="min-width:300px">Video de YouTube</th><th>Estado</th><th></th></tr>
+    </thead>
+    <tbody>
+    {% for t in tracks %}
+      {% set editable = t.status in jobs.EDITABLE_TRACK_STATES %}
+      {% set chosen = (t.candidates | selectattr("youtube_id", "equalto", t.youtube_id) | first) if t.youtube_id else none %}
+      <tr class="{% if t.status in (jobs.SKIPPED_DUPLICATE, jobs.EXCLUDED) %}dim{% endif %}">
+        <td class="muted">{{ t.position + 1 }}</td>
+        <td class="meta">
+          {% if editable %}
+            <form hx-post="/tracks/{{ t.id }}/meta" hx-target="#tracks" hx-trigger="change">
+              <input type="text" name="artist" value="{{ t.artist }}" aria-label="Artista">
+              <input type="text" name="title" value="{{ t.title }}" aria-label="Título">
+            </form>
+          {% else %}
+            <div><b>{{ t.artist }}</b></div><div>{{ t.title }}</div>
+          {% endif %}
+          {% if t.album %}<div class="muted small">{{ t.album }}{% if t.year %} · {{ t.year }}{% endif %}</div>{% endif %}
+        </td>
+        <td class="small">
+          {{ t.duration | duration }}
+          {% if chosen and t.duration and chosen.duration %}
+            {% set diff = chosen.duration - t.duration %}
+            {% set adiff = diff | abs %}
+            <div class="{% if adiff <= 5 %}diff-ok{% elif adiff <= 15 %}diff-warn{% else %}diff-bad{% endif %}">
+              yt {{ chosen.duration | duration }} ({{ "%+d" % diff }}s)
+            </div>
+          {% endif %}
+        </td>
+        <td class="small">
+          {% if editable and t.candidates %}
+            <form hx-post="/tracks/{{ t.id }}/choose" hx-target="#tracks" hx-trigger="change">
+              <select name="youtube_id" style="max-width:100%">
+                {% if not t.youtube_id %}<option value="" selected disabled>— elige un candidato —</option>{% endif %}
+                {% for c in t.candidates %}
+                  <option value="{{ c.youtube_id }}" {% if c.youtube_id == t.youtube_id %}selected{% endif %}>
+                    {{ c.title }} · {{ c.channel }} · {{ c.duration | duration }}{% if c.score is not none %} · {{ c.score | round | int }} pts{% endif %}
+                  </option>
+                {% endfor %}
+              </select>
+            </form>
+          {% elif chosen %}
+            <div>{{ chosen.title }}</div><div class="muted">{{ chosen.channel }}</div>
+          {% endif %}
+          {% if t.youtube_id %}<a href="https://www.youtube.com/watch?v={{ t.youtube_id }}" target="_blank" rel="noopener">ver en YouTube ↗</a>{% endif %}
+          {% if editable %}
+            <form class="row" hx-post="/tracks/{{ t.id }}/manual" hx-target="#tracks" style="margin-top:4px">
+              <input type="text" name="url" placeholder="o pega otro link de YouTube" style="flex:1 1 160px">
+              <button type="submit">Usar</button>
+            </form>
+          {% endif %}
+        </td>
+        <td>
+          <span class="pill s-{{ t.status }}">{{ track_labels[t.status] }}</span>
+          {% if t.message %}<div class="small muted" style="margin-top:4px">{{ t.message }}</div>{% endif %}
+          {% if t.status == jobs.DONE_T %}
+            <div class="small muted" style="margin-top:4px">
+              {{ t.file_path.split("/")[-1] }}{% if t.source_bitrate %} · fuente ~{{ t.source_bitrate | round | int }} kbps{% endif %}
+            </div>
+          {% endif %}
+        </td>
+        <td>
+          {% if t.status == jobs.REVIEW and t.youtube_id %}
+            <button class="link" hx-post="/tracks/{{ t.id }}/choose" hx-vals='{"youtube_id": "{{ t.youtube_id }}"}' hx-target="#tracks">Confirmar</button>
+          {% endif %}
+          {% if t.status == jobs.ERROR %}
+            <button class="link" hx-post="/tracks/{{ t.id }}/retry" hx-target="#tracks">Reintentar</button>
+          {% endif %}
+          {% if t.status in (jobs.PENDING, jobs.REVIEW, jobs.ERROR) %}
+            <button class="link" hx-post="/tracks/{{ t.id }}/exclude" hx-target="#tracks">Omitir</button>
+          {% elif t.status == jobs.EXCLUDED %}
+            <button class="link" hx-post="/tracks/{{ t.id }}/include" hx-target="#tracks">Incluir</button>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+{% endif %}
+</div>

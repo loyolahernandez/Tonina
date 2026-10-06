@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Ajustes · getit{% endblock %}
+{% block content %}
+<h1>Ajustes</h1>
+{% if saved %}<div class="alert ok">Guardado.</div>{% endif %}
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+<form class="panel form-grid" method="post" action="/settings">
+  <label>
+    <span>Carpeta de salida</span>
+    <input type="text" name="output_dir" value="{{ settings.output_dir }}" style="width:100%" required>
+  </label>
+  <label>
+    <span>Patrón de nombre de archivo</span>
+    <input type="text" name="filename_pattern" value="{{ settings.filename_pattern }}" style="width:100%">
+    <div class="small muted">Usa <code>{artist}</code> y <code>{title}</code>. Ejemplo actual: <code>{{ example }}</code></div>
+  </label>
+  <label>
+    <span>Descargas simultáneas</span>
+    <input type="number" name="concurrency" min="1" max="{{ max_concurrency }}" value="{{ settings.concurrency }}">
+  </label>
+  <label class="check">
+    <input type="checkbox" name="dry_run" value="true" {% if settings.dry_run %}checked{% endif %}>
+    Modo prueba: analiza y muestra todo, pero no descarga nada
+  </label>
+  <div class="small muted">Formato de salida: AIFF PCM 16-bit / 44.1 kHz con tags ID3 y carátula (fijo).</div>
+  <div><button class="primary" type="submit">Guardar</button></div>
+</form>
+{% endblock %}

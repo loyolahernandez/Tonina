@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ batch.title or "Lote" }} · getit{% endblock %}
+{% block content %}
+<p class="small"><a href="/">← Inicio</a></p>
+<h1>{{ batch.title or "Analizando link…" }}</h1>
+<p class="muted small" style="word-break:break-all">{{ batch.source }} · {{ batch.url }}</p>
+<div class="alert note small">
+  La calidad real es la de YouTube (audio con pérdida, típicamente ~128–160 kbps). Guardar como AIFF
+  lo hace compatible con rekordbox, pero no lo mejora.
+</div>
+<div id="tracks">{% include "_tracks.html" %}</div>
+{% endblock %}
